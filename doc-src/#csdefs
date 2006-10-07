@@ -9,8 +9,8 @@ arc4random.html     arc4random
 admin.html          Administrivia
 
 # Configuration
-frame <- ../../common/csdocs/frame.html
-copy(../../common/csdocs/style.css)
+frame <- ../../../common/csdocs/frame.html
+copy(../../../common/csdocs/style.css)
 docTitle = PyOpenBSD Manual
 docMaintainer = Aldo Cortesi
 docMaintainerEmail = aldo@nullcube.com
