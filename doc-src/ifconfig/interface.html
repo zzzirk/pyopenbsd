@@ -1,0 +1,110 @@
+<p> Individual interfaces are represented as instances of the Interface class. </p>
+
+<h2> Interface </h2>
+
+	<h3>Interface()</h3>
+
+	<p>The Interface class should never be instantiated by the user. Interface
+	instances can be retrieved using IFConfig, discussed in the previous
+	section.</p>
+
+	<h3>flags</h3>
+
+	<p> The <b>flags</b> attribute is used both to set and retrieve interface
+	flags. That is, values assigned to this attribute, will automatically be
+	set on the interface as well. The following flags are available:</p>
+
+		<ul>
+			<li>IFF_UP</li>
+			<li>IFF_BROADCAST</li>
+			<li>IFF_DEBUG</li>
+			<li>IFF_LOOPBACK</li>
+			<li>IFF_POINTOPOINT</li>
+			<li>IFF_NOTRAILERS</li>
+			<li>IFF_RUNNING</li>
+			<li>IFF_NOARP</li>
+			<li>IFF_PROMISC</li>
+			<li>IFF_ALLMULTI</li>
+			<li>IFF_OACTIVE</li>
+			<li>IFF_SIMPLEX</li>
+			<li>IFF_LINK0</li>
+			<li>IFF_LINK1</li>
+			<li>IFF_LINK2</li>
+			<li>IFF_MULTICAST</li>
+		</ul>
+
+	<h3>Name</h3>
+
+	<p> The interface name. </p>
+
+
+	<h3>Iftype</h3>
+
+	<p> The <b>Iftype</b> attribute can be inspected for a text representation
+	of the interface type. For a complete list of possibile types see the IFT_*
+	variables in net/iftypes.h. Note that the text returned by this attribute
+	will not have the IFT_ prefix - i.e. IFT_ETHER is represented simply as
+	ETHER.</p>
+
+	<h3>description</h3>
+
+	<p> The <b>description</b> attribute is used both to set and retrieve the
+    interface description string. That is, the value assigned to this attribute,
+    will automatically be set on the interface as well. </p>
+
+	<h3>mtu</h3>
+
+	<p> The <b>mtu</b> attribute is used both to set and retrieve interface
+	MTU. That is, values assigned to this attribute, will automatically be
+	set on the interface as well. </p>
+
+	<h3>metric</h3>
+
+	<p> The <b>metric</b> attribute is used both to set and retrieve interface
+	metric. That is, values assigned to this attribute, will automatically be
+	set on the interface as well. </p>
+
+	<h3>addresses</h3>
+
+	<p> A list of addresses for this interface. The value returned is a list of
+	dictionaries, the format of which would be tedious to explain here, but
+	should be obvious upon inspection.</p>
+
+	<h3>media</h3>
+
+	<p> The <b>media</b> attribute is used to inspect and manipulate the media
+	types and options of an interface. If media options do not apply to an
+	interface, the <b>media</b> attribute will be set to None. For more
+	information, see the documentation covering the <a
+	href="media.html">Media Class</a>.</p>
+
+	<h3>addAddress(addr, mask=None)</h3>
+
+	<p> Add an IPv4 or IPv6 address to the interface. The mask specification is
+	optional, and can be given either as a prefix length (i.e. "24"), or as an
+	address (i.e. "255.255.255.0"). The default masks are 24 for IPv4 and 64
+	for IPv6. IPv6 addresses can make use of all the standard abbreviations and
+	notations.</p>
+
+	<h3>delAddress(addr)</h3>
+
+	<p> Delete the specified address from the interface. </p>
+
+	<h3>setAddress(addr, mask=None)</h3>
+
+	<p> Set an address. The arguments are treated identically to those of
+	addAddress, but the first existing address of the same type (i.e. IPv4 or
+	IPv6) is first removed from the interface.</p>
+
+	<h3>addGroup(groupName)</h3>
+
+    <p> Assign this interface to an interface group </p>
+
+	<h3>delGroup(groupName)</h3>
+
+    <p> Unassign this interface from an interface group it is a part of </p>
+
+	<h3>getGroups()</h3>
+
+    <p> Return a list of interface groups of which this interface is a member </p>
+

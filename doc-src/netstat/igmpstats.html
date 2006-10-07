@@ -1,0 +1,37 @@
+
+<p> IGMP protocol statistics. </p>
+
+<h2> Header Files </h2>
+
+<ul>
+	<li> include/netinet/igmp_var.h
+</ul>
+
+<h2> Interface </h2>
+
+	<!--(block example)-->
+import openbsd
+n = openbsd.netstat.Netstat()
+print n.igmpstats()
+n.close()
+	<!--(end)-->
+	@!colourPython(example)!@
+
+<h2> Example Output </h2>
+
+<p> The example output below was produced using the building Python
+pretty-printer. See the <a href="../netstat.html">netstat parent page</a> for
+an example of how this is done. </p>
+
+	<!--(block example)-->
+{   'rcv_badqueries': 0L,
+    'rcv_badreports': 0L,
+    'rcv_badsum': 0L,
+    'rcv_ourreports': 0L,
+    'rcv_queries': 0L,
+    'rcv_reports': 0L,
+    'rcv_tooshort': 0L,
+    'rcv_total': 0L,
+    'snd_reports': 0L}
+	<!--(end)-->
+	@!colourPython(example)!@

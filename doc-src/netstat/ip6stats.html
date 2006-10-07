@@ -1,0 +1,57 @@
+<p> IPv6 protocol statistics. </p>
+
+<h2> Header Files </h2>
+
+<ul>
+	<li> include/netinet/ip6_var.h
+</ul>
+
+<h2> Interface </h2>
+
+	<!--(block example)-->
+import openbsd
+n = openbsd.netstat.Netstat()
+print n.ip6stats()
+n.close()
+	<!--(end)-->
+	@!colourPython(example)!@
+
+<h2> Example Output </h2>
+
+<p> The example output below was produced using the building Python
+pretty-printer. See the <a href="../netstat.html">netstat parent page</a> for
+an example of how this is done. </p>
+
+	<!--(block example)-->
+{   'badoptions': 0L,
+    'badscope': 0L,
+    'badvers': 0L,
+    'cantforward': 0L,
+    'cantfrag': 0L,
+    'delivered': 5789L,
+    'exthdrtoolong': 0L,
+    'forward': 0L,
+    'fragdropped': 0L,
+    'fragmented': 0L,
+    'fragments': 0L,
+    'fragoverflow': 0L,
+    'fragtimeout': 0L,
+    'localout': 5796L,
+    'm1': 4232L,
+    'mext1': 0L,
+    'mext2m': 0L,
+    'nogif': 0L,
+    'noroute': 0L,
+    'notmember': 0L,
+    'odropped': 0L,
+    'ofragments': 0L,
+    'rawout': 0L,
+    'reassembled': 0L,
+    'redirectsent': 0L,
+    'toomanyhdr': 0L,
+    'tooshort': 0L,
+    'toosmall': 0L,
+    'total': 5789L
+}
+	<!--(end)-->
+	@!colourPython(example)!@

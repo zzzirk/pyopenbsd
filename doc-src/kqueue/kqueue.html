@@ -1,0 +1,26 @@
+
+<p> The KQueue class represents a single kernel event queue. </p>
+
+
+<h2> Interface </h2>
+
+	<h3>KQueue()</h3>
+
+	<p>The KQueue class requires no instantiation parameters.</p>
+
+	<h3>kevent(changelist=None, nevents=0, timeout=None)</h3>
+
+	<p>The kevent method is used to register or retrieve events. It accepts the
+	following parameters:</p>
+
+	<ul>
+
+		<li><b>changelist</b> - a list of KEvents defining a set of changes to the queue.</li>
+
+		<li><b>nevents</b> - the number of events to retrieve. </li>
+
+		<li><b>timout</b> - maximum interval to wait for an event. If timeout
+		is None, kevent waits indefinitely. </li>
+
+	</ul>
+

@@ -1,0 +1,36 @@
+
+<p> The kqueue module is an interface to the OpenBSD kernel event notification
+system. </p>
+
+<h2> Example </h2>
+
+<p> The example program below does the following: 
+	<ul>
+		<li> Opens a file named "test" (creating it if it does not exist).
+		<li> Creates a EVNode kevent, which monitors for all possible EVNode conditions.
+		<li> Creates a new KQueue, and registers the created kevent with it.
+		<li> It then enters an infinite loop that simply prints any events recieved.
+	</ul>
+
+</p>
+
+<p> You can now manipulate the file named "test" to see the kqueue module in
+action. </p>
+
+	<!--(block example)-->
+from openbsd.kqueue import *
+
+f = open("test", "w+")
+ev = EVNode(ident=f, flags=EV_ADD|EV_CLEAR, fflags= 
+    EVNode.NOTE_WRITE|EVNode.NOTE_DELETE|
+    EVNode.NOTE_EXTEND|EVNode.NOTE_ATTRIB|
+    EVNode.NOTE_TRUNCATE|EVNode.NOTE_LINK|
+    EVNode.NOTE_RENAME|EVNode.NOTE_REVOKE
+)
+q = KQueue()
+q.kevent(changelist=[ev])
+while 1:
+    evs = q.kevent(nevents=1)
+    print evs[0]
+	<!--(end)-->
+	@!colourPython(example)!@

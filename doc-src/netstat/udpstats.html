@@ -1,0 +1,41 @@
+
+<p> UDP protocol statistics. </p>
+
+<h2> Header Files </h2>
+
+<ul>
+	<li> include/netinet/udp_var.h
+</ul>
+
+<h2> Interface </h2>
+
+	<!--(block example)-->
+import openbsd
+n = openbsd.netstat.Netstat()
+print n.udpstats()
+n.close()
+	<!--(end)-->
+	@!colourPython(example)!@
+
+<h2> Example Output </h2>
+
+<p> The example output below was produced using the building Python
+pretty-printer. See the <a href="../netstat.html">netstat parent page</a> for
+an example of how this is done. </p>
+
+	<!--(block example)-->
+{   'badlen': 0L,
+    'badsum': 0L,
+    'fullsock': 0L,
+    'hdrops': 0L,
+    'inhwcsum': 0L,
+    'ipackets': 9192L,
+    'noport': 48L,
+    'noportbcast': 2388L,
+    'nosec': 0L,
+    'nosum': 0L,
+    'opackets': 6858L,
+    'outhwcsum': 0L,
+    'pcbhashmiss': 57L}
+	<!--(end)-->
+	@!colourPython(example)!@

@@ -1,0 +1,109 @@
+
+
+<p> The user program communicates with the event queue by way of KEvents. A set
+of KEvents are passed into the queue using the kevent() method to set up the
+conditions to monitor, and a set of KEvents are passed back to indicate which
+events have triggered. </p>
+
+<p> The KEvent objects are analagous to the struct defined in kqueue(2). </p> 
+
+<h2> Interface </h2>
+	
+	<h3>KEvent(ident, flags=0, fflags=0, udata=None)</h3>
+
+	<p> Note that "KEvent" in the definition above refers to a generic KEvent
+	class - in practice, one of the KEvent classes defined below will be used
+	instead. </p>
+
+	<p> All KEvents obey the same construction interface: </p>
+
+		<ul>
+
+			<li> <b>ident</b> is an identifier whose interpretation differs
+			between KEvent classes. For instance, it may be a file descriptor,
+			or a process identifier. </li>
+
+			<li> <b>flags</b> are the actions to perform on the given KEvent.
+			Possible flag values are: 
+
+					<ul>
+						<li>EV_ADD - Add the event to the queue.</li>
+						<li>EV_ENABLE - Permit kevent() to return the event if it is triggered. </li>
+						<li>EV_DISABLE - Do not permit kevent() to return the event if it is triggered. </li>
+						<li>EV_DELETE - Remove the event from the queue. </li>
+						<li>EV_ONESHOT - Delete the event from the queue after the first time it is triggered. </li>
+						<li>EV_CLEAR - Reset the event state after it is retrieved by the user. </li>
+						<li>EV_EOF - Filters may set this flag to indicate a filter-specific EOF condition. </li>
+						<li>EV_ERROR - Filters may set this to signal filter-specific error conditions. </li>
+					</ul>
+
+			<li> <b>fflags</b> are filter-specific flags. See the specific
+			filter documentation below for a list of fflags available for each
+			filter. Please see kqueue(2) for information on the meaning of each
+			flag.
+
+			<li> <b> udata </b> is opaque user data. This can be any arbitrary
+			piece of user-defined data associated with the KEvent. User data
+			will be returned intact by kevent() when a KEvent triggers.
+
+		</ul>
+
+	<p> Some filters return filter-specific data through the .data attribute.
+	Please see kqueue(2) for more information. </p>
+
+
+<h2> ERead </h2>
+
+	<p>Returns whenever data is available to read.</p>
+
+	<ul>
+		<li> <b> ident </b> is a descriptor. </li>
+
+		<li> <b>fflags</b>:
+
+				<ul>
+					<li>ERead.NOTE_LOWAT</li>
+					<li>ERead.NOTE_EOF</li>
+				</ul>
+	</ul>
+
+<h2> EWrite </h2>
+
+	<p> EWrite has no filter flags. </p>
+
+
+
+<h2> EVNode </h2>
+
+	<p> <b>fflags:</b> </p>
+
+		<ul>
+			<li>EVNode.NOTE_DELETE</li>
+			<li>EVNode.NOTE_WRITE</li>
+			<li>EVNode.NOTE_EXTEND</li>
+			<li>EVNode.NOTE_TRUNCATE</li>
+			<li>EVNode.NOTE_ATTRIB</li>
+			<li>EVNode.NOTE_LINK</li>
+			<li>EVNode.NOTE_RENAME</li>
+			<li>EVNode.NOTE_REVOKE</li>
+		</ul>
+
+
+<h2> EProc </h2>
+
+	<p><b>fflags:</b> </p>
+
+		<ul>
+			<li>EProc.NOTE_EXIT</li>
+			<li>EProc.NOTE_FORK</li>
+			<li>EProc.NOTE_EXEC</li>
+			<li>EProc.NOTE_TRACK</li>
+			<li>EProc.NOTE_TRACKERR</li>
+			<li>EProc.NOTE_CHILD</li>
+			<li>EProc.NOTE_PROC</li>
+		</ul>
+
+<h2> ESignal </h2>
+
+	<p> ESignal has no filter flags. </p>
+

@@ -1,0 +1,106 @@
+<p> Interface information and traffic statistics. </p>
+
+<h2> Header Files </h2>
+
+<ul>
+	<li> include/net/if.h
+</ul>
+
+<h2> Interface </h2>
+
+	<!--(block example)-->
+import openbsd
+n = openbsd.netstat.Netstat()
+print n.ifstats()
+n.close()
+	<!--(end)-->
+	@!colourPython(example)!@
+
+
+<h2> Example Output </h2>
+
+<p> The example output below was produced using the building Python
+pretty-printer. See the <a href="../netstat.html">netstat parent page</a> for
+an example of how this is done. </p>
+
+	<!--(block example)-->
+{
+    'enc0': {   'baudrate': 0L,
+                'collisions': 0L,
+                'ibytes': 0L,
+                'ierrors': 0L,
+                'imcasts': 0L,
+                'ipackets': 0L,
+                'iqdrops': 0L,
+                'link_state': 'UNKNOWN',
+                'metric': 0L,
+                'mtu': 1536L,
+                'noproto': 0L,
+                'obytes': 0L,
+                'oerrors': 0L,
+                'omcasts': 0L,
+                'opackets': 0L},
+    'fxp0': {   'baudrate': 100000000L,
+                'collisions': 0L,
+                'ibytes': 187751822L,
+                'ierrors': 0L,
+                'imcasts': 1206L,
+                'ipackets': 327092L,
+                'iqdrops': 0L,
+                'link_state': 'UP',
+                'metric': 0L,
+                'mtu': 1500L,
+                'noproto': 0L,
+                'obytes': 128783472L,
+                'oerrors': 0L,
+                'omcasts': 5L,
+                'opackets': 274509L},
+    'lo0': {   'baudrate': 0L,
+               'collisions': 0L,
+               'ibytes': 4477971L,
+               'ierrors': 0L,
+               'imcasts': 0L,
+               'ipackets': 5943L,
+               'iqdrops': 0L,
+               'link_state': 'UNKNOWN',
+               'metric': 0L,
+               'mtu': 33224L,
+               'noproto': 0L,
+               'obytes': 4477971L,
+               'oerrors': 0L,
+               'omcasts': 0L,
+               'opackets': 5943L},
+    'pflog0': {   'baudrate': 0L,
+                  'collisions': 0L,
+                  'ibytes': 0L,
+                  'ierrors': 0L,
+                  'imcasts': 0L,
+                  'ipackets': 0L,
+                  'iqdrops': 0L,
+                  'link_state': 'UNKNOWN',
+                  'metric': 0L,
+                  'mtu': 33224L,
+                  'noproto': 0L,
+                  'obytes': 0L,
+                  'oerrors': 0L,
+                  'omcasts': 0L,
+                  'opackets': 0L},
+    'pfsync0': {   'baudrate': 0L,
+                   'collisions': 0L,
+                   'ibytes': 0L,
+                   'ierrors': 0L,
+                   'imcasts': 0L,
+                   'ipackets': 0L,
+                   'iqdrops': 0L,
+                   'link_state': 'UNKNOWN',
+                   'metric': 0L,
+                   'mtu': 2020L,
+                   'noproto': 0L,
+                   'obytes': 0L,
+                   'oerrors': 0L,
+                   'omcasts': 0L,
+                   'opackets': 0L}}
+	<!--(end)-->
+	@!colourPython(example)!@
+
+

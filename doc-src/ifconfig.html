@@ -1,0 +1,32 @@
+
+<p> The <b>ifconfig</b> module exposes allows the user to query and manipulate
+network interfaces from Python programs. </p>
+
+<h2> Example </h2>
+
+<p> The example below does the following: </p>
+
+	<ul>
+		<li> Creates a new interface "tun6"
+		<li> Adds the address "192.168.0.1" to the interface.
+		<li> Sets its MTU to 1500
+		<li> Sets its interface group to "internal"
+		<li> Sets the UP flag on the interface (equivalent to "ifconfig tun6 up")
+		<li> Prints human-readable information on tun0
+		<li> And then destroys "tun6"
+	</ul>
+
+	<!--(block example)-->
+from openbsd.ifconfig import *
+
+i = IFConfig()
+i.create("tun0")
+i["tun0"].addAddress("192.168.0.1")
+i["tun0"].mtu = 1500
+i["tun0"].addGroup = "internal"
+i["tun0"].flags = IFF_UP
+print i["tun0"]
+i.destroy("tun0")
+	<!--(end)-->
+@!colourPython(example)!@
+

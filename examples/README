@@ -1,0 +1,6 @@
+
+This directory contains a number of demo programs, illustrating various pieces
+of PyOpenBSD functionality. These programs and are not intended for real-world
+use, although some of them could be expanded to become useful projects in their
+own right. 
+

@@ -1,0 +1,14 @@
+The unit tests in this directory were written to be run by PyLid: 
+
+    http://www.nullcube.com/software/pylid
+    
+That said, PyLid is built on the standard Python unit-testing framework, so it
+should not be hard to run the tests without it. 
+
+About the test suite:
+
+	- If you see any test failures, please inspect the affected unit test files
+	  for configurable parameters, before assuming a bug.
+	- Running this test suite as root will test functionality like creating and
+	  destroying interfaces, setting interface addresses, inspecting kernel
+	  information etc, etc. Do NOT do this on a production system.

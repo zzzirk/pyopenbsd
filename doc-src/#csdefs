@@ -1,0 +1,16 @@
+index.html          Introduction
+ifconfig.html		ifconfig
+ifconfig
+kqueue.html			kqueue
+kqueue
+netstat.html        netstat 
+netstat
+arc4random.html     arc4random
+admin.html          Administrivia
+
+# Configuration
+frame <- ../../common/csdocs/frame.html
+copy(../../common/csdocs/style.css)
+docTitle = PyOpenBSD Manual
+docMaintainer = Aldo Cortesi
+docMaintainerEmail = aldo@nullcube.com

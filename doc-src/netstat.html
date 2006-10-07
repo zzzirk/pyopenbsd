@@ -1,0 +1,27 @@
+
+<p> The <b>netstat</b> module exposes network and protocol information similar
+to that made available by the familiar <b>netstat(1)</b> tool. Since it uses
+the Kernel Virtual Memory interface (kvm(3)) to read datastructures from kernel
+memory, using the <b>netstat</b> module requires root privileges. </p>
+
+<p> Access to data is provided by methods of the Netstat class. Each method
+returns a nested set of dictionaries and/or lists, the structure and meaning of
+which should be obvious by inspection. It is frequently useful to be able to
+refer to the kernel header files where the pertinent data structures are
+defined, and the documentation for each Netstat method provides this
+information.</p>
+
+<h2> Example </h2>
+
+<p> The following example uses the standard Python pretty-printer to output a
+complete set of IP traffic statistics. </p>
+
+	<!--(block example)-->import pprint
+import openbsd.netstat
+
+pp = pprint.PrettyPrinter(indent=4)
+ns = openbsd.netstat.Netstat()
+pp.pprint(ns.ipstats())
+ns.close()
+	<!--(end)-->
+	@!colourPython(example)!@

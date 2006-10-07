@@ -1,0 +1,34 @@
+
+<p> All functionality exposed by the ifconfig module is accessed through an
+instance of the IFConfig class. This class acts as a dictionary that "contains"
+the list of network interfaces. Each interface is an instance of the Interface
+class, which is discussed in the next section.</p>
+
+<h2> Interface </h2>
+
+	<h3>IFConfig()</h3>
+
+	<p>The IFConfig class requires no instantiation parameters.</p>
+
+	<h3>__getitem__(ifname)</h3>
+
+	<p> Retrieve an interface of a given name. This special method also allows
+	an interface object to be treated as a dictionary, the keys of which are
+	interface names. </p>
+
+	<h3>has_key(ifname)</h3>
+
+	<p>Does an interface with the name ifname exist.</p>
+
+	<h3>keys()</h3>
+
+	<p>Retrieve a list of interfaces.</p>
+
+	<h3>create(ifname)</h3>
+
+	<p> Create an interface with name ifname. </p>
+
+	<h3>destroy(ifname)</h3>
+
+	<p> Destroy the interface with name ifname. </p>
+

@@ -1,0 +1,27 @@
+#!/bin/sh
+PUBDIR=../nullcube-website/sitedef/software/pyopenbsd/download
+DOCDIR=../nullcube-website/sitedef/software/pyopenbsd
+VERSION="0.1.1"
+PACKAGE="pyopenbsd-$VERSION"
+echo "Publishing PyOpenBSD..."
+
+# First we set up our source files
+rm -rf doc
+./makedoc.py
+mkdir $PACKAGE
+cp -r setup.py CHANGELOG README openbsd doc examples programs test $PACKAGE
+rm -r `find $PACKAGE -name "CVS"`
+rm -r `find $PACKAGE -name "*.so"`
+rm -r `find $PACKAGE -name "*.pyc"`
+tar -czf $PACKAGE.tgz $PACKAGE
+
+mkdir -p $PUBDIR
+if [ -d $PUBDIR ]; then
+	cp $PACKAGE.tgz $PUBDIR
+	rm -rf $PUBDIR/doc
+	cp -r doc $DOCDIR
+fi
+
+# Cleanup
+rm -r $PACKAGE
+echo "...done."

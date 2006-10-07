@@ -1,0 +1,121 @@
+<p> ICMP protocol statistics. </p>
+
+<h2> Header Files </h2>
+
+<ul>
+	<li> include/netinet/icmp_var.h
+</ul>
+
+<h2> Interface </h2>
+
+	<!--(block example)-->
+import openbsd
+n = openbsd.netstat.Netstat()
+print n.icmpstats()
+n.close()
+	<!--(end)-->
+	@!colourPython(example)!@
+
+<h2> Example Output </h2>
+
+<p> The example output below was produced using the building Python
+pretty-printer. See the <a href="../netstat.html">netstat parent page</a> for
+an example of how this is done. </p>
+
+	<!--(block example)-->
+{   'badcode': 0L,
+    'badlen': 0L,
+    'bmcastecho': 0L,
+    'checksum': 0L,
+    'error': 0L,
+    'inhist': {   '#19': 0L,
+                  '#20': 0L,
+                  '#21': 0L,
+                  '#22': 0L,
+                  '#23': 0L,
+                  '#24': 0L,
+                  '#25': 0L,
+                  '#26': 0L,
+                  '#27': 0L,
+                  '#28': 0L,
+                  '#29': 0L,
+                  '#37': 0L,
+                  '#38': 0L,
+                  '1': 0L,
+                  '2': 0L,
+                  '6': 0L,
+                  '7': 0L,
+                  'IPv6 i-am-here': 0L,
+                  'IPv6 where-are-you': 0L,
+                  'Photuris': 0L,
+                  'SKIP': 0L,
+                  'addressmaskreply': 0L,
+                  'addressmaskrequest': 0L,
+                  'data conversion error': 0L,
+                  'echo': 0L,
+                  'echoreply': 0L,
+                  'informationrequest': 0L,
+                  'informationrequestreply': 0L,
+                  'mobile host redirect': 0L,
+                  'mobile registration reply': 0L,
+                  'mobile registration request': 0L,
+                  'parameterproblem': 0L,
+                  'redirect': 0L,
+                  'routeradvertisement': 0L,
+                  'routersolicitation': 0L,
+                  'sourcequench': 0L,
+                  'timeexceeded': 0L,
+                  'timestamp': 0L,
+                  'timestampreply': 0L,
+                  'traceroute': 0L,
+                  'unreachable': 0L},
+    'oldicmp': 0L,
+    'oldshort': 0L,
+    'outhist': {   '#19': 0L,
+                   '#20': 0L,
+                   '#21': 0L,
+                   '#22': 0L,
+                   '#23': 0L,
+                   '#24': 0L,
+                   '#25': 0L,
+                   '#26': 0L,
+                   '#27': 0L,
+                   '#28': 0L,
+                   '#29': 0L,
+                   '#37': 0L,
+                   '#38': 0L,
+                   '1': 0L,
+                   '2': 0L,
+                   '6': 0L,
+                   '7': 0L,
+                   'IPv6 i-am-here': 0L,
+                   'IPv6 where-are-you': 0L,
+                   'Photuris': 0L,
+                   'SKIP': 0L,
+                   'addressmaskreply': 0L,
+                   'addressmaskrequest': 0L,
+                   'data conversion error': 0L,
+                   'echo': 0L,
+                   'echoreply': 0L,
+                   'informationrequest': 0L,
+                   'informationrequestreply': 0L,
+                   'mobile host redirect': 0L,
+                   'mobile registration reply': 0L,
+                   'mobile registration request': 0L,
+                   'parameterproblem': 0L,
+                   'redirect': 0L,
+                   'routeradvertisement': 0L,
+                   'routersolicitation': 0L,
+                   'sourcequench': 0L,
+                   'timeexceeded': 0L,
+                   'timestamp': 0L,
+                   'timestampreply': 0L,
+                   'traceroute': 0L,
+                   'unreachable': 0L},
+    'reflect': 0L,
+    'tooshort': 0L
+}
+	<!--(end)-->
+	@!colourPython(example)!@
+
+

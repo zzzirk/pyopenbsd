@@ -1,0 +1,15 @@
+Installing PyOpenBSD should be as simple as running the following command as
+root:
+
+    python setup.py install
+
+Please also take a moment to run the unit tests, and let us know if you come
+accross any failures. The easiest way to do this is to download pylid from the
+Nullcube website (www.nullcube.com). Then simply enter the test directory, and
+run pylid with no arguments.
+
+If you're feeling adventurous, you can also run these tests as root. In this
+case, a number of extra tests for functionality like interface creation and
+destruction will be run. Please note that there is a (slight) chance that your
+system might need a reboot if things go hideously wrong during these tests, so
+don't do this on critical systems. 

@@ -1,0 +1,43 @@
+<p> IP Payload Compression protocol statistics. </p>
+
+<h2> Header Files </h2>
+
+<ul>
+	<li> include/netinet/ip_ipcomp.h
+</ul>
+
+<h2> Interface </h2>
+
+	<!--(block example)-->
+import openbsd
+n = openbsd.netstat.Netstat()
+print n.ipcompstats()
+n.close()
+	<!--(end)-->
+	@!colourPython(example)!@
+
+<h2> Example Output </h2>
+
+<p> The example output below was produced using the building Python
+pretty-printer. See the <a href="../netstat.html">netstat parent page</a> for
+an example of how this is done. </p>
+
+	<!--(block example)-->
+{   'badkcr': 0L,
+    'crypto': 0L,
+    'hdrops': 0L,
+    'ibytes': 0L,
+    'input': 0L,
+    'invalid': 0L,
+    'minlen': 0L,
+    'nopf': 0L,
+    'notdb': 0L,
+    'noxform': 0L,
+    'obytes': 0L,
+    'output': 0L,
+    'pdrops': 0L,
+    'qfull': 0L,
+    'toobig': 0L,
+    'wrap': 0L}
+	<!--(end)-->
+	@!colourPython(example)!@

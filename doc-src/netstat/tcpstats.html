@@ -1,0 +1,98 @@
+
+<p> TCP protocol statistics. </p>
+
+<h2> Header Files </h2>
+
+<ul>
+	<li> include/netinet/tcp_var.h
+</ul>
+
+<h2> Interface </h2>
+
+	<!--(block example)-->
+import openbsd
+n = openbsd.netstat.Netstat()
+print n.tcpstats()
+n.close()
+	<!--(end)-->
+	@!colourPython(example)!@
+
+<h2> Example Output </h2>
+
+<p> The example output below was produced using the building Python
+pretty-printer. See the <a href="../netstat.html">netstat parent page</a> for
+an example of how this is done. </p>
+
+	<!--(block example)-->
+{   'accepts': 190L,
+    'badsyn': 0L,
+    'closed': 3990L,
+    'connattempt': 2988L,
+    'conndrops': 3L,
+    'connects': 3139L,
+    'cwr_ecn': 0L,
+    'cwr_frecovery': 50L,
+    'cwr_timeout': 190L,
+    'delack': 443788L,
+    'drops': 12L,
+    'ecn_accepts': 0L,
+    'ecn_rcvce': 0L,
+    'ecn_rcvcwr': 0L,
+    'ecn_rcvece': 0L,
+    'ecn_sndcwr': 0L,
+    'ecn_sndece': 0L,
+    'ecn_sndect': 0L,
+    'inhwcsum': 0L,
+    'keepdrops': 1L,
+    'keepprobe': 16L,
+    'keeptimeo': 17L,
+    'noport': 297L,
+    'outhwcsum': 0L,
+    'pawsdrop': 7L,
+    'pcbhashmiss': 487L,
+    'persistdrop': 0L,
+    'persisttimeo': 0L,
+    'predack': 17842L,
+    'preddat': 727675L,
+    'rcvackbyte': 16435993L,
+    'rcvackpack': 41223L,
+    'rcvacktoomuch': 0L,
+    'rcvafterclose': 133L,
+    'rcvbadoff': 0L,
+    'rcvbadsig': 0L,
+    'rcvbadsum': 0L,
+    'rcvbyte': 328576668L,
+    'rcvbyteafterwin': 1L,
+    'rcvdupack': 2945L,
+    'rcvdupbyte': 94108L,
+    'rcvduppack': 442L,
+    'rcvgoodsig': 0L,
+    'rcvmemdrop': 0L,
+    'rcvnosec': 0L,
+    'rcvoobyte': 72975148L,
+    'rcvoopack': 80398L,
+    'rcvpack': 744245L,
+    'rcvpackafterwin': 1L,
+    'rcvpartdupbyte': 2164L,
+    'rcvpartduppack': 3L,
+    'rcvshort': 0L,
+    'rcvtotal': 856294L,
+    'rcvwinprobe': 1L,
+    'rcvwinupd': 310L,
+    'rexmttimeo': 190L,
+    'rttupdated': 44148L,
+    'segstimed': 44065L,
+    'sndacks': 450225L,
+    'sndbyte': 16440144L,
+    'sndctrl': 6191L,
+    'sndpack': 40638L,
+    'sndprobe': 0L,
+    'sndrexmitbyte': 94379L,
+    'sndrexmitfast': 50L,
+    'sndrexmitpack': 142L,
+    'sndtotal': 568293L,
+    'sndurg': 0L,
+    'sndwinup': 71097L,
+    'timeoutdrop': 3L}
+	<!--(end)-->
+	@!colourPython(example)!@

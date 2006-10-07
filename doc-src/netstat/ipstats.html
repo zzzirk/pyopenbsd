@@ -1,0 +1,60 @@
+<p> IP protocol statistics. </p>
+
+<h2> Header Files </h2>
+
+<ul>
+	<li> include/netinet/ip_var.h
+</ul>
+
+<h2> Interface </h2>
+
+	<!--(block example)-->
+import openbsd
+n = openbsd.netstat.Netstat()
+print n.ipstats()
+n.close()
+	<!--(end)-->
+	@!colourPython(example)!@
+
+<h2> Example Output </h2>
+
+<p> The example output below was produced using the building Python
+pretty-printer. See the <a href="../netstat.html">netstat parent page</a> for
+an example of how this is done. </p>
+
+	<!--(block example)-->
+{   
+    'badaddr': 0L,
+    'badfrags': 0L,
+    'badhlen': 0L,
+    'badlen': 0L,
+    'badoptions': 0L,
+    'badsum': 22L,
+    'badvers': 0L,
+    'cantforward': 0L,
+    'cantfrag': 0L,
+    'delivered': 768160L,
+    'forward': 0L,
+    'fragdropped': 0L,
+    'fragmented': 0L,
+    'fragments': 0L,
+    'fragtimeout': 0L,
+    'inhwcsum': 0L,
+    'localout': 494935L,
+    'nogif': 0L,
+    'noproto': 10L,
+    'noroute': 32L,
+    'odropped': 0L,
+    'ofragments': 0L,
+    'outhwcsum': 0L,
+    'rawout': 0L,
+    'rcvmemdrop': 0L,
+    'reassembled': 0L,
+    'redirectsent': 0L,
+    'toolong': 0L,
+    'tooshort': 0L,
+    'toosmall': 0L,
+    'total': 768192L
+}
+	<!--(end)-->
+	@!colourPython(example)!@

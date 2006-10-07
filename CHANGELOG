@@ -1,0 +1,13 @@
+
+0.1.3
+
+    - Fix compilation on 3.8.
+    - Close kqueue file descriptors when KQueue object is freed.
+	- Fix crash when netstat module was used from the interactive prompt.
+
+
+0.1.1:
+
+	- Fix unit test breakage on big-endian systems.
+	- Make it possible to run pfreport without having gdchart installed.
+	- Remove M_COMP option from Enc protocol.

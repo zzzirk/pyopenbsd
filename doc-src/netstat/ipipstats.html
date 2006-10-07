@@ -1,0 +1,38 @@
+
+<p> IP-over-IP protocol statistics. </p>
+
+<h2> Header Files </h2>
+
+<ul>
+	<li> include/netinet/ip_ipip.h
+</ul>
+
+<h2> Interface </h2>
+
+	<!--(block example)-->
+import openbsd
+n = openbsd.netstat.Netstat()
+print n.ipipstats()
+n.close()
+	<!--(end)-->
+	@!colourPython(example)!@
+
+<h2> Example Output </h2>
+
+<p> The example output below was produced using the building Python
+pretty-printer. See the <a href="../netstat.html">netstat parent page</a> for
+an example of how this is done. </p>
+
+	<!--(block example)-->
+{   'family': 0L,
+    'hdrops': 0L,
+    'ibytes': 0L,
+    'ipackets': 0L,
+    'obytes': 0L,
+    'opackets': 0L,
+    'pdrops': 0L,
+    'qfull': 0L,
+    'spoof': 0L,
+    'unspec': 0L}
+	<!--(end)-->
+	@!colourPython(example)!@

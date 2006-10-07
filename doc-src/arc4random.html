@@ -1,0 +1,22 @@
+
+<p> The <b>arc4random</b> module allows the user to generate a specified amount
+of random information. See arc4random(3) for more information.</p>
+
+<h2> Example </h2>
+
+<p> The following example retrieves 1024 bytes of random information. </p>
+
+	<!--(block example)-->
+import openbsd
+
+x = openbsd.arc4random.getbytes(1024)
+	<!--(end)-->
+@!colourPython(example)!@
+
+<h2> Interface </h2>
+
+<h3>getbytes(bytes)</h3>
+
+<p>The <b>arc4random</b> random module exposes a single function, taking one
+argument - the number of bytes of data to be generated. The data is returned as
+a Python string.</p>
