@@ -1,0 +1,108 @@
+- Demo program ideas:
+    - port scanner
+    - firemap-like program
+    - top-like program for pflogs.
+    - user-space NAT
+	- A small port-knocking program (with disclaimer pointing out its dubious
+	  value... ;)
+
+
+- Useful program ideas
+	- TrafStat
+    - a pf log anonymiser
+    - A more powerful tool for manipulating pflogs (grep-like, offsets in the log, etc.)
+    - Programs for reading/analyzing/manipulating pf logs. 
+    - Interface traffic grapher with gdchart.
+	- Host/Server monitor
+	- Some simple re-implementations of OpenBSD tools?
+
+
+- Add other random functions/libraries.
+
+Further functionality we would like:
+	- arp
+	- pf
+	- wicontrol
+	- libevent - event(3)
+
+
+/*
+ * Other nlist programs to be incorporated:
+ *      bin/ps/nlist.c
+ *      sbin/dmesg/dmesg.c
+ *      sbin/kbd/kbd_wscons.c
+ *      sbin/savecore/savecore.c
+ *      usr.bin/ipcs/ipcs.c
+ *      usr.bin/netstat/main.c
+ *      usr.bin/nfsstat/nfsstat.c
+ *      usr.bin/systat/mbufs.c
+ *      usr.bin/vmstat/dkstats.c
+ *      usr.sbin/config/ukc.c
+ *      usr.sbin/pstat/pstat.c
+ *
+ *      Specific structures:
+ *          - _mbstat       - mbuf statistics
+ *          - Multicast routing: /src/usr.bin/netstat/mroute.c
+ */
+
+POLICY
+======
+
+    - This project exists to provide a Python interface to the standard OpenBSD
+      libraries, in order to allow us to manipulate and inspect an OpenBSD
+      system from a Python program.
+    - Since there is a HUGE number of tools and libraries that could
+      potentially be included, initial versions of pyOpenBSD will NOT support:
+            - Rarely used protocols like IPX, Appletalk, etc.
+    - The project will also focus primarily on aspects that may prove useful to
+      Nullcube.
+
+
+NOTES
+=====
+
+- In general, whenever we query a piece of information through the Python
+  interface, it should be fetched "live" from the system. I.e. building a list
+  of values when we create an object, or start up an interface, is no good.
+
+
+
+Some thoughts on interface design
+=================================
+
+Throughout PyOpenBSD we use Python properties to make it possible to manipulate
+and query a class simply by assigning to or "dereferencing" a class attribute.
+We should recognise that property interfaces have the following drawbacks:
+
+	- They break the common coding paradigm that says that class methods "do"
+	  something, while attributes can be manipulated without immediate results. 
+	- It is easy to make a typo and "assign" to a non-existent property. This
+	  will produce no error, but will also not have the desired effect.
+
+Personally, I don't think that this is too great a price to pay for the
+elegance and convenience of using properties for interfaces. The following set
+of guidelines should be followed:
+
+    - Only use properties where you would naturally have a pair of set/get
+      methods.
+    - Class attributes that are not constants, but should NOT be changed by the
+      user should be typographically indicated by an initial capital.
+
+
+
+Suggested Work on OpenBSD
+=========================
+
+	- Look at pcap_fileno and pcap_file. These don't act as advertised.
+	- man getifaddrs. When discussing the ifa_data member of the returned
+	  struct, it refers to an "ifa_data" struct defined in /net/if.h. This
+	  struct does not exist. I believe that OpenBSD does not keep per-address
+	  interface statistics at the moment.
+	- Look at "netstat -vnI fxp0" vs "netstat -nI fxp0". The spacing could be
+	  fixed. 
+	- ifconfig is revolting due to a prevalence of global variables, spaghetti
+	  code, and general fucked-uppedness.
+	- Look at tcpdump print_enc.c. It has a bug when printing the flags.
+	- Look at ifconfig.c, the function in6_getaddr. Why in blazes do we
+	  initialise a hints and pass hints, if we can just pass Null instead?
+	  (Hmmm. There must be a reason - it doesn't seem to work otherwise...)
