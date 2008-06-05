@@ -1,10 +1,13 @@
-import unittest, tempfile, os, datetime
+import tempfile, os, datetime
+import libpry
+
 try:
     from programs.plog import *
 except ImportError:
+    # We probably don't have packetpy
     pass
 else:
-    class uSysLog(unittest.TestCase):
+    class uSysLog(libpry.AutoTree):
         def setUp(self):
             self.tf = tempfile.mkstemp()[1]
             self.f = file(self.tf, "w")
@@ -22,29 +25,29 @@ else:
         def test_last(self):
             l = SysLog(self.tf, 0, self.kq)
             l._last(0)
-            self.failUnlessEqual(l.fd.readlines(), [])
+            assert l.fd.readlines() == []
             l._last(1)
-            self.failUnlessEqual(l.fd.readlines(), ["four"])
+            assert l.fd.readlines() == ["four"]
             l._last(2)
-            self.failUnlessEqual(l.fd.readlines(), ["three\n", "four"])
+            assert l.fd.readlines() == ["three\n", "four"]
             l._last(4)
-            self.failUnlessEqual(l.fd.readlines(), ["one\n", "two\n", "three\n", "four"])
+            assert l.fd.readlines() == ["one\n", "two\n", "three\n", "four"]
             l._close()
 
 
-    class uGetTimeval(unittest.TestCase):
+    class uGetTimeval(libpry.AutoTree):
         def test_parse(self):
             line = "Feb 1 01:02:03 host programname[1]:   one\n"
             tv = getTimeval(line)
-            self.failUnlessEqual(tv.year, datetime.datetime.today().year)
-            self.failUnlessEqual(tv.month, 2)
-            self.failUnlessEqual(tv.day, 1)
-            self.failUnlessEqual(tv.hour, 1)
-            self.failUnlessEqual(tv.minute, 2)
-            self.failUnlessEqual(tv.second, 3)
+            assert tv.year == datetime.datetime.today().year
+            assert tv.month == 2
+            assert tv.day == 1
+            assert tv.hour == 1
+            assert tv.minute == 2
+            assert tv.second == 3
 
 
-    class uDisplayer(unittest.TestCase):
+    class uDisplayer(libpry.AutoTree):
         def setUp(self):
             self.tf = tempfile.mkstemp()[1]
             self.f = file(self.tf, "w")
@@ -77,18 +80,19 @@ else:
         def test_read(self):
             d = Displayer(0, 1, 0, 0, 0, [self.tf3, self.tf2, self.tf], [])
             d.lfiles.sort()
-            self.failUnlessEqual(d.lfiles[0].nextTimestamp.day, 1)
-            self.failUnlessEqual(d.lfiles[1].nextTimestamp.day, 2)
-            self.failUnlessEqual(d.lfiles[2].nextTimestamp, None)
+            assert d.lfiles[0].nextTimestamp.day == 1
+            assert d.lfiles[1].nextTimestamp.day == 2
+            assert d.lfiles[2].nextTimestamp == None
 
         def test_display(self):
             d = Displayer(0, 1, 0, 0, 0, [self.tf2, self.tf], [])
             d.display()
 
 
-    class uPCapDump(unittest.TestCase):
-        def setUp(self):
-            self.p = PCapDump("pcap_data/tdump", None, None)
+    tests = [
+        uSysLog(),
+        uGetTimeval(),
+        uDisplayer(),
+    ]
 
-        def test_getNextEntry(self):
-            pass
+

@@ -239,7 +239,7 @@ error:
 }
 
 
-int _setifinfo(char *ifname, int ioc, unsigned short *flags, u_long *mtu, u_long *metric, char *ifdescr) {
+int _setifinfo(char *ifname, unsigned long ioc, unsigned short *flags, u_long *mtu, u_long *metric, char *ifdescr) {
 	struct ifreq ifr;
 	int s;
 
@@ -256,7 +256,7 @@ int _setifinfo(char *ifname, int ioc, unsigned short *flags, u_long *mtu, u_long
 	s = socket(AF_INET, SOCK_DGRAM, 0);
 	if (s < 0)
         goto error;
-    if (ioctl(s, ioc, (caddr_t)&ifr) < 0){
+    if (ioctl(s, ioc, &ifr) < 0){
 	    close(s);
 		goto error;
     }

@@ -54,8 +54,6 @@
 #include <netinet/ip_esp.h>
 #include <netinet/ip_ipip.h>
 #include <netinet/ip_ipcomp.h>
-#include <netipx/ipx.h>
-#include <netipx/ipx_if.h>
 #include <kvm.h>
 #include <Python.h>
 

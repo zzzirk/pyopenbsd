@@ -641,7 +641,7 @@ error:
 PyObject *get_states(PyObject *self, PyObject *args){
     PyObject *lst, *dct, *src, *dst, *lan, *gwy, *ext;
 	struct pfioc_states ps;
-    struct pf_state *p;
+    struct pfsync_state *p;
     int i;
     int len = 0;
 
@@ -690,9 +690,7 @@ PyObject *get_states(PyObject *self, PyObject *args){
 		stealingSetItem(dct, "allow_opts", PyLong_FromLong((long) p->allow_opts)); 
 		stealingSetItem(dct, "creation", PyLong_FromLong((long) p->creation)); 
 		stealingSetItem(dct, "expire", PyLong_FromLong((long) p->expire)); 
-		stealingSetItem(dct, "pfsync_time", PyLong_FromLong((long) p->pfsync_time)); 
-		stealingSetItem(dct, "tag", PyLong_FromLong((long) p->tag)); 
-		stealingSetItem(dct, "ifname", PyString_FromString(p->u.ifname)); 
+		stealingSetItem(dct, "ifname", PyString_FromString(p->ifname)); 
         stealingSetItem(dct, "packets", 
                 PyTuple_Pack(
                         2,

@@ -1,8 +1,9 @@
-import unittest, sys, tempfile, os
+import sys, tempfile, os
+import libpry
 
 from openbsd.kqueue import *
 
-class uKEvent(unittest.TestCase):
+class uKEvent(libpry.AutoTree):
     def setUp(self):
         self.k = KQueue()
 
@@ -23,7 +24,7 @@ class uKEvent(unittest.TestCase):
         ev = ERead(sys.stdout)
         ev.flags = EV_ADD
         ev.ident = "adsfsadf"
-        self.failUnlessRaises(OException, self.k.kevent, [ev], 0)
+        libpry.raises(OException, self.k.kevent, [ev], 0)
 
     def test_kevent_ret(self):
         # Create a tempfile
@@ -38,11 +39,15 @@ class uKEvent(unittest.TestCase):
 
         os.remove(tf)
         ev = self.k.kevent(nevents=1, timeout=None)[0]
-        self.failUnless(isinstance(ev, EVNode))
-        self.failUnlessEqual(ev.flags, EV_ADD)
-        self.failUnlessEqual(ev.fflags, EVNode.NOTE_DELETE)
-        self.failUnlessEqual(ev.udata, "test")
+        assert isinstance(ev, EVNode)
+        assert ev.flags == EV_ADD
+        assert ev.fflags == EVNode.NOTE_DELETE
+        assert ev.udata == "test"
 
     def test_del(self):
         k2 = KQueue()
         del k2
+
+tests = [
+    uKEvent()
+]

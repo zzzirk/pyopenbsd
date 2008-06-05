@@ -1,8 +1,8 @@
-import unittest
 import tempfile, os
+import libpry
 from openbsd.followfile import *
 
-class uFollowFile(unittest.TestCase):
+class uFollowFile(libpry.AutoTree):
     def setUp(self):
         self.fname = tempfile.mktemp()
         f = open(self.fname, "w+")
@@ -15,3 +15,7 @@ class uFollowFile(unittest.TestCase):
     def test_follow(self):
         for i in followFile(self.fname, timeout=0.0001):
             pass
+
+tests = [
+    uFollowFile()
+]

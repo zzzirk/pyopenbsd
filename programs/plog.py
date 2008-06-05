@@ -1,6 +1,6 @@
-#!/usr/bin/env python2.3
+#!/usr/bin/env python
 import optparse, time, datetime, gzip, sys, os, errno
-import openbsd.pcap
+import packet.pcap
 from openbsd.kqueue import *
 """
     PLog is a unified log reading program. Its features include:
@@ -142,7 +142,7 @@ class PCapDump(_LogBase):
 
     def _open(self):
         try:
-            return openbsd.pcap.Offline(self.name)
+            return packet.pcap.Offline(self.name)
         except IOError:
             raise RLogError, val
 
@@ -227,7 +227,7 @@ class ZippedSysLog(_SeekableFile):
 def LogFactory(name, *args):
     if name.endswith(".gz"):
         return ZippedSysLog(name, *args)
-    elif openbsd.pcap.isPCapFile(name):
+    elif packet.pcap.isPCapFile(name):
         return PCapDump(name, *args)
     else:
         return SysLog(name, *args)
@@ -237,7 +237,7 @@ class PCapDevice:
     def __init__(self, name):
         self.name = name
         try:
-            self._dev = openbsd.pcap.Live(self.name, timeout=1)
+            self._dev = packet.pcap.Live(self.name, timeout=1)
         except IOError:
             raise RLogError, val
 
