@@ -639,35 +639,26 @@ error:
 
 
 PyObject *get_states(PyObject *self, PyObject *args){
-    PyObject *lst, *dct, *src, *dst, *lan, *gwy, *ext;
+    PyObject *lst, *dct, *src, *dst;
 	struct pfioc_states ps;
     struct pfsync_state *p;
     int i;
-    int len = 0;
 
 	if (!PyArg_ParseTuple(args, ""))
 		return NULL;
 
 	bzero(&ps, sizeof ps);
-    for (;;){
-        if (ps.ps_len){
-            if (ps.ps_buf)
-                free(ps.ps_buf);
-            ps.ps_buf = malloc(ps.ps_len);
-            if (ps.ps_buf == NULL){
-                PyErr_SetFromErrno(OException);
-                return NULL;
-            }
-        }
-	    if (ioctl(dev, DIOCGETSTATES, &ps)){
-            if (ps.ps_buf)
-                free(ps.ps_buf);
-            PyErr_SetFromErrno(OException);
-            return NULL;
-        }
-        if (len == ps.ps_len || ps.ps_len == 0)
-                break;
-        len = ps.ps_len;
+    if (ioctl(dev, DIOCGETSTATES, &ps)){
+        PyErr_SetFromErrno(OException);
+        return NULL;
+    }
+
+    ps.ps_buf = malloc(ps.ps_len);
+    if (ioctl(dev, DIOCGETSTATES, &ps)){
+        if (ps.ps_buf)
+            free(ps.ps_buf);
+        PyErr_SetFromErrno(OException);
+        return NULL;
     }
 
 	if (!(lst = PyList_New(0)))
@@ -687,9 +678,10 @@ PyObject *get_states(PyObject *self, PyObject *args){
 		stealingSetItem(dct, "log", PyLong_FromLong((long) p->log)); 
 		stealingSetItem(dct, "timeout", PyLong_FromLong((long) p->timeout)); 
 		stealingSetItem(dct, "sync_flags", PyLong_FromLong((long) p->sync_flags)); 
-		stealingSetItem(dct, "allow_opts", PyLong_FromLong((long) p->allow_opts)); 
 		stealingSetItem(dct, "creation", PyLong_FromLong((long) p->creation)); 
 		stealingSetItem(dct, "expire", PyLong_FromLong((long) p->expire)); 
+		stealingSetItem(dct, "creatorid", PyLong_FromLong((long) p->creatorid)); 
+		stealingSetItem(dct, "updates", PyLong_FromLong((long) p->updates)); 
 		stealingSetItem(dct, "ifname", PyString_FromString(p->ifname)); 
         stealingSetItem(dct, "packets", 
                 PyTuple_Pack(
@@ -713,7 +705,6 @@ PyObject *get_states(PyObject *self, PyObject *args){
 			return NULL;
 		}
 		stealingSetItem(src, "state",      PyLong_FromLong((long)p->src.state)); 
-		stealingSetItem(src, "wscale",     PyLong_FromLong((long)p->src.wscale)); 
         stealingSetItem(dct, "src", src);
 
 		if (!(dst = PyDict_New())){
@@ -725,29 +716,6 @@ PyObject *get_states(PyObject *self, PyObject *args){
 		stealingSetItem(dst, "state",      PyLong_FromLong((long)p->dst.state)); 
 		stealingSetItem(dst, "wscale",     PyLong_FromLong((long)p->dst.wscale)); 
         stealingSetItem(dct, "dst", dst);
-
-		if (!(lan = PyDict_New()) || !(gwy = PyDict_New()) || !(ext = PyDict_New())){
-			Py_DECREF(lst);
-			Py_DECREF(dct);
-			free(ps.ps_buf);
-			return NULL;
-		}
-		if (p->af == AF_INET){
-			stealingSetItem(lan, "address", PyString_FromStringAndSize((char*)(&p->lan.addr.v4.s_addr), 4));
-			stealingSetItem(gwy, "address", PyString_FromStringAndSize((char*)(&p->gwy.addr.v4.s_addr), 4));
-			stealingSetItem(ext, "address", PyString_FromStringAndSize((char*)(&p->ext.addr.v4.s_addr), 4));
-		} else if (p->af == AF_INET6) {
-			stealingSetItem(lan, "address", PyString_FromStringAndSize((char*)(&p->lan.addr.v6.s6_addr), 16));
-			stealingSetItem(gwy, "address", PyString_FromStringAndSize((char*)(&p->gwy.addr.v6.s6_addr), 16));
-			stealingSetItem(ext, "address", PyString_FromStringAndSize((char*)(&p->ext.addr.v6.s6_addr), 16));
-		} 
-		stealingSetItem(lan, "port", PyLong_FromLong((long) ntohs(p->lan.port)));
-		stealingSetItem(gwy, "port", PyLong_FromLong((long) ntohs(p->gwy.port)));
-		stealingSetItem(ext, "port", PyLong_FromLong((long) ntohs(p->ext.port)));
-        stealingSetItem(dct, "lan", lan);
-        stealingSetItem(dct, "gwy", gwy);
-        stealingSetItem(dct, "ext", ext);
-
 
 		if (PyList_Append(lst, dct) < 0){
 			Py_DECREF(dct);
