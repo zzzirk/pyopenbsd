@@ -245,6 +245,8 @@ static PyObject *ifstats(PyObject *self, PyObject *args){
 			case (LINK_STATE_UNKNOWN):		tstr = "UNKNOWN"; break;
 			case (LINK_STATE_DOWN):			tstr = "DOWN"; break;
 			case (LINK_STATE_UP):			tstr = "UP"; break;
+			case (LINK_STATE_HALF_DUPLEX):	tstr = "HALF DUPLEX"; break;
+			case (LINK_STATE_FULL_DUPLEX):	tstr = "FULL DUPLEX"; break;
 			default:
 				PyErr_SetString(PyExc_ValueError, "Unknown interface link state.");
 			    return NULL;
