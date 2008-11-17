@@ -1,4 +1,5 @@
-#    Copyright (c) 2003, Aldo Cortesi
+#    Copyright (c) 2005, Aldo Cortesi
+#    Copyright (c) 2008, David Harrison
 #    All rights reserved.
 #
 #    Redistribution and use in source and binary forms, with or without
@@ -24,7 +25,16 @@
 #    (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 #    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 """
-    Python bindings for OpenBSD.
+    A Python module for querying and manipulating system configurations
 """
 
-import netstat, ifconfig, utils, arc4random, pf, system
+
+import _system
+
+
+class System(object):
+    def _gethostname(self):
+        return _system.get_hostname()
+    def _sethostname(self, hostname):
+        _system.set_hostname(hostname)
+    hostname = property(_gethostname, _sethostname, "Hostname")

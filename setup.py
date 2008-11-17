@@ -52,12 +52,17 @@ pf          = Extension(
                             sources = ["openbsd/_pf.c", "openbsd/_cutils.c"],
                             extra_compile_args=CFLAGS
                         )
+system       = Extension(
+                            "openbsd._system",
+                            sources = ["openbsd/_system.c"],
+                            extra_compile_args=CFLAGS
+                        )
 
 setup (
         name = 'Python OpenBSD bindings',
         version = '0.1.1',
         description = 'An extensive set of Python bindings for OpenBSD-specific libraries.',
-        ext_modules = [arc4random, sysvar, netstat, ifconfig, kqueue, pf],
+        ext_modules = [arc4random, sysvar, netstat, ifconfig, kqueue, pf, system],
         packages=["openbsd"],
        cmdclass = {"build_scripts": MyBuildScripts}
     )
