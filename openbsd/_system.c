@@ -41,16 +41,20 @@ PyObject *set_hostname(PyObject *self, PyObject *args){
 PyObject *get_mntinfo(PyObject *self, PyObject *args){
     long mntsize, i;
     struct statfs *mntbuf;
-    PyObject *mntlist, *tmpdict;
+    PyObject *mntdict, *tmpdict;
 
-    if (!(mntlist = PyList_New(0)))
+    if (!(mntdict = PyDict_New()))
         return NULL;
 
-    mntsize = getmntinfo(&mntbuf, MNT_NOWAIT);
-    for (i = 0; i < mntsize; i++) {
+    if (!(mntsize = getmntinfo(&mntbuf, MNT_NOWAIT))){
+        PyErr_SetFromErrno(OException);
+        return NULL;
+    }
+
+    for (i = 0; i < mntsize; i++){
         tmpdict = Py_BuildValue("{s:s}", "mntfromname", mntbuf[i].f_mntfromname);
-        stealingSetItem(tmpdict, "fstypename", PyString_FromString(mntbuf[i].f_fstypename));
         stealingSetItem(tmpdict, "mntonname", PyString_FromString(mntbuf[i].f_mntonname));
+        stealingSetItem(tmpdict, "fstypename", PyString_FromString(mntbuf[i].f_fstypename));
         stealingSetItem(tmpdict, "ctime", PyLong_FromUnsignedLong(mntbuf[i].f_ctime));
         stealingSetItem(tmpdict, "owner", PyLong_FromUnsignedLong(mntbuf[i].f_owner));
         stealingSetItem(tmpdict, "flags", PyLong_FromUnsignedLong(mntbuf[i].f_flags));
@@ -59,14 +63,26 @@ PyObject *get_mntinfo(PyObject *self, PyObject *args){
         stealingSetItem(tmpdict, "blocks", PyLong_FromUnsignedLong(mntbuf[i].f_blocks));
         stealingSetItem(tmpdict, "bfree", PyLong_FromUnsignedLong(mntbuf[i].f_bfree));
         stealingSetItem(tmpdict, "bavail", PyLong_FromLong(mntbuf[i].f_bavail));
+        stealingSetItem(tmpdict, "files", PyLong_FromUnsignedLong(mntbuf[i].f_files));
+        stealingSetItem(tmpdict, "ffree", PyLong_FromUnsignedLong(mntbuf[i].f_ffree));
+        stealingSetItem(
+                        tmpdict,
+                        "syncwrites",
+                        PyLong_FromUnsignedLong(mntbuf[i].f_syncwrites)
+                    );
+        stealingSetItem(
+                        tmpdict,
+                        "asyncwrites",
+                        PyLong_FromUnsignedLong(mntbuf[i].f_asyncwrites)
+                    );
 
-        if (PyList_Append(mntlist, tmpdict) < 0) {
+        if (stealingSetItem(mntdict, mntbuf[i].f_mntonname, tmpdict)){
             Py_DECREF(tmpdict);
-            Py_DECREF(mntlist);
+            Py_DECREF(mntdict);
             return NULL;
         }
     }
-    return mntlist;
+    return mntdict;
 }
 
 

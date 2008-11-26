@@ -36,11 +36,11 @@ import _system
 class System(object):
     @property
     def mntinfo(self):
-        lst = _system.get_mntinfo()
-        for mnt in lst:
-            mnt["ctime"] = \
-                datetime.datetime.fromtimestamp(mnt["ctime"])
-        return lst
+        dct = _system.get_mntinfo()
+        for mnt in dct.keys():
+            dct[mnt]["ctime"] = \
+                datetime.datetime.fromtimestamp(dct[mnt]["ctime"])
+        return dct
 
     def _gethostname(self):
         return _system.get_hostname()
