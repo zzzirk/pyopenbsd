@@ -29,10 +29,19 @@
 """
 
 
+import datetime
 import _system
 
 
 class System(object):
+    @property
+    def mntinfo(self):
+        lst = _system.get_mntinfo()
+        for mnt in lst:
+            mnt["ctime"] = \
+                datetime.datetime.fromtimestamp(mnt["ctime"])
+        return lst
+
     def _gethostname(self):
         return _system.get_hostname()
     def _sethostname(self, hostname):

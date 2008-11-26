@@ -13,6 +13,8 @@ class uSystem(libpry.AutoTree):
     def test_gethostname(self):
         assert not self.s.hostname is None
 
+    def test_mntinfo(self):
+        assert not self.s.mntinfo is None
 
     if os.geteuid() == 0:
 

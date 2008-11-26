@@ -54,7 +54,7 @@ pf          = Extension(
                         )
 system       = Extension(
                             "openbsd._system",
-                            sources = ["openbsd/_system.c"],
+                            sources = ["openbsd/_system.c", "openbsd/_cutils.c"],
                             extra_compile_args=CFLAGS
                         )
 
