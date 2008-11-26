@@ -1,4 +1,4 @@
-#    Copyright (c) 2005, Aldo Cortesi
+#    Copyright (c) 2008, Aldo Cortesi
 #    Copyright (c) 2008, David Harrison
 #    All rights reserved.
 #
