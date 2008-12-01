@@ -3,6 +3,7 @@
 #include <sys/mount.h>
 #include <sys/time.h>
 #include <sys/sysctl.h>
+#include <sys/dkstat.h>
 
 #include <err.h>
 #include <stdio.h>
@@ -97,11 +98,36 @@ PyObject *get_boottime(PyObject *self, PyObject *args){
     mib[1] = KERN_BOOTTIME;
 
     size = sizeof(boottime);
-    if (sysctl(mib, 2, &boottime, &size, NULL, 0) == -1){
+    if (sysctl(mib, 2, &boottime, &size, NULL, 0) < 0){
         PyErr_SetFromErrno(OException);
         return NULL;
     }
     return PyLong_FromLong(boottime.tv_sec);
+}
+
+
+PyObject *get_cpustats(PyObject *self, PyObject *args){
+    PyObject *cpudict;
+    size_t size;
+    int mib[2];
+    long cp_time[CPUSTATES];
+
+    size = sizeof(cp_time);
+    mib[0] = CTL_KERN;
+    mib[1] = KERN_CPTIME;
+
+    if (sysctl(mib, 2, cp_time, &size, NULL, 0) < 0){
+        bzero(cp_time, sizeof(cp_time));
+        PyErr_SetFromErrno(OException);
+        return NULL;
+    }
+
+    cpudict = Py_BuildValue("{s:l}", "user", cp_time[CP_USER]);
+    stealingSetItem(cpudict, "nice", PyLong_FromLong(cp_time[CP_NICE]));
+    stealingSetItem(cpudict, "sys", PyLong_FromLong(cp_time[CP_SYS]));
+    stealingSetItem(cpudict, "intr", PyLong_FromLong(cp_time[CP_INTR]));
+    stealingSetItem(cpudict, "idle", PyLong_FromLong(cp_time[CP_IDLE]));
+    return cpudict;
 }
 
 
@@ -110,6 +136,7 @@ static PyMethodDef SystemMethods[] = {
     {"set_hostname", set_hostname, METH_VARARGS, "Set hostname."},
     {"get_mntinfo", get_mntinfo, METH_VARARGS, "Get mount info."},
     {"get_boottime", get_boottime, METH_VARARGS, "Get boot time."},
+    {"get_cpustats", get_cpustats, METH_VARARGS, "Get CPU stats."},
     {NULL, NULL, 0, NULL}            /* Sentinel */
 };
 

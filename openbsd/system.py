@@ -46,6 +46,11 @@ class System(object):
     def boottime(self):
         return datetime.datetime.fromtimestamp(_system.get_boottime())
 
+    @property
+    def cpustats(self):
+        dct = _system.get_cpustats()
+        return dct
+
     def _gethostname(self):
         return _system.get_hostname()
     def _sethostname(self, hostname):

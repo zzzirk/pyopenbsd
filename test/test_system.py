@@ -19,6 +19,9 @@ class uSystem(libpry.AutoTree):
     def test_boottime(self):
         assert self.s.boottime
 
+    def test_cpustats(self):
+        assert self.s.cpustats
+
     if os.geteuid() == 0:
 
         def test_sethostname(self):
