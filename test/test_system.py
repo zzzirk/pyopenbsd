@@ -16,6 +16,9 @@ class uSystem(libpry.AutoTree):
     def test_mntinfo(self):
         assert not self.s.mntinfo is None
 
+    def test_boottime(self):
+        assert self.s.boottime
+
     if os.geteuid() == 0:
 
         def test_sethostname(self):

@@ -1,6 +1,8 @@
 #include <sys/param.h>
 #include <sys/stat.h>
 #include <sys/mount.h>
+#include <sys/time.h>
+#include <sys/sysctl.h>
 
 #include <err.h>
 #include <stdio.h>
@@ -86,10 +88,28 @@ PyObject *get_mntinfo(PyObject *self, PyObject *args){
 }
 
 
+PyObject *get_boottime(PyObject *self, PyObject *args){
+    size_t size;
+    struct timeval boottime;
+    int mib[2];
+
+    mib[0] = CTL_KERN;
+    mib[1] = KERN_BOOTTIME;
+
+    size = sizeof(boottime);
+    if (sysctl(mib, 2, &boottime, &size, NULL, 0) == -1){
+        PyErr_SetFromErrno(OException);
+        return NULL;
+    }
+    return PyLong_FromLong(boottime.tv_sec);
+}
+
+
 static PyMethodDef SystemMethods[] = {
     {"get_hostname", get_hostname, METH_VARARGS, "Get hostname."},
     {"set_hostname", set_hostname, METH_VARARGS, "Set hostname."},
     {"get_mntinfo", get_mntinfo, METH_VARARGS, "Get mount info."},
+    {"get_boottime", get_boottime, METH_VARARGS, "Get boot time."},
     {NULL, NULL, 0, NULL}            /* Sentinel */
 };
 

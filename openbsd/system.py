@@ -42,6 +42,10 @@ class System(object):
                 datetime.datetime.fromtimestamp(dct[mnt]["ctime"])
         return dct
 
+    @property
+    def boottime(self):
+        return datetime.datetime.fromtimestamp(_system.get_boottime())
+
     def _gethostname(self):
         return _system.get_hostname()
     def _sethostname(self, hostname):
